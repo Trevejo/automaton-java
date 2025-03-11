@@ -91,8 +91,7 @@ public class CPFAutomaton {
     currentState = State.INITIAL; // Resetar o estado para cada validação
 
     if (cpf.length() != 11 && cpf.length() != 14) {
-      return false; // Se não tiver 11 dígitos (sem formatação) ou 14 (com
-                    // formatação completa), rejeita
+      return false;
     }
 
     for (char c : cpf.toCharArray()) {

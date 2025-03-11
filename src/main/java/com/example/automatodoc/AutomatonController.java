@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AutomatonController {
-  private final CPFAutomaton cpfAutomaton = new CPFAutomaton(); // Instância do autômato
+  private final CPFAutomaton cpfAutomaton = new CPFAutomaton();
+  private final RGAutomaton rgAutomaton = new RGAutomaton();
 
   @GetMapping("/")
   public String index(Model model) {
@@ -22,6 +23,15 @@ public class AutomatonController {
 
     System.out.println("inputValue: " + inputValue);
     boolean result = cpfAutomaton.validateCPF(inputValue);
+    return String.valueOf(result);
+  }
+
+  @PostMapping("/processRG")
+  @ResponseBody
+  public String processRG(@RequestParam("inputValue") String inputValue) {
+
+    System.out.println("inputValue: " + inputValue);
+    boolean result = rgAutomaton.validateRG(inputValue);
     return String.valueOf(result);
   }
 }
