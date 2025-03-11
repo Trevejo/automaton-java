@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>My Spring Boot App</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+    }
+
+    #myDiv {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div id="myDiv">
+    <label for="inputValue">Enter Value:</label>
+    <input type="text" id="inputValue" name="inputValue" oninput="resetColor()">
+    <button onclick="sendInput()">Submit</button>
+  </div>
+
+  <script>
+    function sendInput() {
+      var inputValue = document.getElementById("inputValue").value;
+
+      fetch('/processCPF', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'inputValue=' + inputValue
+      })
+        .then(response => response.text())
+        .then(result => {
+          if (result === 'true') {
+            document.getElementById("myDiv").style.backgroundColor = "green";
+          } else {
+            document.getElementById("myDiv").style.backgroundColor = "red";
+          }
+        });
+    }
+
+    function resetColor() {
+      document.getElementById("myDiv").style.backgroundColor = "white";
+    }
+  </script>
+
+</body>
+
+</html>
